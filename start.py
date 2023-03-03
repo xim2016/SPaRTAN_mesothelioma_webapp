@@ -5,19 +5,21 @@ from streamlit_option_menu import option_menu
 
 from main_page import main_page
 
+from register_load_widget_state import  load_widget_state
+
 # Image.MAX_IMAGE_PIXELS = None
 
 # from utils import set_page_container_style
-def set_page_container_style(prcnt_width: int = 75):
-    max_width_str = f"max-width: {prcnt_width}%;"
-    st.markdown(f"""
-                <style> 
-                
-                .appview-container .main .block-container{{{max_width_str}}}
-                </style>    
-                """,
-                unsafe_allow_html=True,
-                )
+# def set_page_container_style(prcnt_width: int = 75):
+max_width_str = f"max-width: {75}%;"
+st.markdown(f"""
+            <style> 
+            
+            .appview-container .main .block-container{{{max_width_str}}}
+            </style>    
+            """,
+            unsafe_allow_html=True,
+            )
 
 
 page_style = """
@@ -34,7 +36,7 @@ page_style = """
 
 
 
-set_page_container_style(75)
+# set_page_container_style(75)
 
 
 with st.sidebar:
@@ -50,7 +52,7 @@ with st.sidebar:
     }
     )
 cleaned_setting = choose1.replace(" ","_")
-
+load_widget_state()
 main_page(choose1, cleaned_setting)
 # if choose1 == "Setting_0":
 

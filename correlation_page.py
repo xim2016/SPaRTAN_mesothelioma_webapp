@@ -2,20 +2,21 @@ import pandas as pd
 import streamlit as st
 from pathlib import Path
 from utils import img2buf, violin_plot, convert_df_to_csv, load_data
+from register_load_widget_state import  persist
 
-def set_page_container_style(prcnt_width: int = 75):
-    max_width_str = f"max-width: {prcnt_width}%;"
-    st.markdown(f"""
-                <style> 
+# def set_page_container_style(prcnt_width: int = 75):
+#     max_width_str = f"max-width: {prcnt_width}%;"
+#     st.markdown(f"""
+#                 <style> 
                 
-                .appview-container .main .block-container{{{max_width_str}}}
-                </style>    
-                """,
-                unsafe_allow_html=True,
-                )
+#                 .appview-container .main .block-container{{{max_width_str}}}
+#                 </style>    
+#                 """,
+#                 unsafe_allow_html=True,
+#                 )
 
 
-set_page_container_style(75)
+# set_page_container_style(75)
 
 def correlation_page(path_data,last_select=""):
 
@@ -46,39 +47,50 @@ def correlation_page(path_data,last_select=""):
  
     c_celltype, c_protein = st.columns(2)
 
-    s_celltype = c_celltype.selectbox(f'Cell Type ({len(celltypes)})', celltypes, 2, format_func=lambda x: x + " (Num of samples: " + str(celltype2Nsample[x]) + ")")
-    
+    # s_celltype = c_celltype.selectbox(f'Cell Type ({len(celltypes)})', celltypes, 2, format_func=lambda x: x + " (Num of samples: " + str(celltype2Nsample[x]) + ")")
+    s_celltype = c_celltype.selectbox(f'Cell Type ({len(celltypes)})', celltypes, key=persist("corrpage_type"), format_func=lambda x: x + " (Num of samples: " + str(celltype2Nsample[x]) + ")")
+
     proteins = celltype2protein[s_celltype]
    
-    # Check if session state object exists
-    if "selected_protein" not in st.session_state:
-        st.session_state['selected_protein'] = proteins[0]
-    if 'old_protein' not in st.session_state:
-        st.session_state['old_protein'] = ""   
+    # # Check if session state object exists
+    # if "selected_protein" not in st.session_state:
+    #     st.session_state['selected_protein'] = proteins[0]
+    # if 'old_protein' not in st.session_state:
+    #     st.session_state['old_protein'] = ""   
 
 
-    # Check if value exists in the new options list. if it does retain the selection, else reset
-    if st.session_state["selected_protein"] not in proteins:
-        st.session_state["selected_protein"] = proteins[0]
+    # # Check if value exists in the new options list. if it does retain the selection, else reset
+    # if st.session_state["selected_protein"] not in proteins:
+    #     st.session_state["selected_protein"] = proteins[0]
 
-    prev_num = st.session_state["selected_protein"]
+    # prev_num = st.session_state["selected_protein"]
 
 
-    def number_callback():
-        st.session_state["old_protein"] = st.session_state["selected_protein"]
-        st.session_state["selected_protein"] = st.session_state.new_protein
+    # def number_callback():
+    #     st.session_state["old_protein"] = st.session_state["selected_protein"]
+    #     st.session_state["selected_protein"] = st.session_state.new_protein
         
 
-    st.session_state["selected_protein"] = c_protein.selectbox(
+    # st.session_state["selected_protein"] = c_protein.selectbox(
+    #             f'Protein ({len(proteins)})',
+    #             proteins,
+    #             index=proteins.index(st.session_state["selected_protein"]),
+    #             key = 'new_protein',
+    #             on_change = number_callback
+    #         )
+
+    if "corrpage_protein" in st.session_state:
+        if not st.session_state.corrpage_protein in proteins:
+            st.session_state.corrpage_protein = proteins[0]
+
+    # selected_protein = st.session_state["selected_protein"]
+
+    selected_protein = c_protein.selectbox(
                 f'Protein ({len(proteins)})',
                 proteins,
-                index=proteins.index(st.session_state["selected_protein"]),
-                key = 'new_protein',
-                on_change = number_callback
+                key = persist("corrpage_protein"),
             )
-
-
-    selected_protein = st.session_state["selected_protein"]
+    
     imgfile_input = str(path_data / "protein-TF_correlation/figure"/f"{s_celltype}_{selected_protein}.png")
     
     datafile_input = str(path_data / "protein-TF_correlation"/f"{s_celltype}_{selected_protein}.csv")
