@@ -200,6 +200,6 @@ def data_page(path_data):
         # st.info("SPaRTAN moodule was trained on dataset per donor per cell type. We selected genes by intersecting genes in TF-target gene prior matrix and filtered the genes that have to be expressed in 30\% cells in all donors in a single cell type. Not every cell type has cells(or enough cells) for every donor to run SPaRTAN module. We specify each module dataset has minimal 50 cells")
 
         st.dataframe(spartan_data.style.format(
-            {'RNArate': '{:.2f}'}), use_container_width=True)
+            {'RNArate': '{:.2f}', 'number of genes': '{:.0f}', 'number of TFs': '{:.0f}', 'number of proteins': '{:.0f}' }), use_container_width=True)
         # from st_aggrid import AgGrid
         # AgGrid(spartan_data, height=500, fit_columns_on_grid_load=True)

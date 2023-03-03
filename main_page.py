@@ -1,7 +1,7 @@
 
 import streamlit as st
 from PIL import Image
-from streamlit_option_menu import option_menu
+from  streamlit_option_menu import option_menu
 
 from correlation_page import correlation_page
 from data_page import data_page
@@ -44,19 +44,20 @@ mainTitle2idx = {"Data Info": 0,
                  "Protein-TF Correlation": 2
                  }
 
-
+if 'main' not in st.session_state:  
+    st.session_state.main = 0 
 
 def main_page(orisetting, cleanedsetting):
 
     path_data = Path(f"./data/{cleanedsetting}") 
 
     with st.sidebar:
-        default_value = st.session_state["main"] if "main" in st.session_state else 0
-        print( "main" in st.session_state)
+        # default_value = st.session_state["main"] if "main" in st.session_state else 0
+        # print( "main" in st.session_state)
         choose2 = option_menu(orisetting, ["Data Info", "TF Analyses", "Protein-TF Correlation"],
                             icons=['clipboard-data',
                                     'lightning-charge', 'bar-chart-line'],
-                            menu_icon="arrow-return-right", default_index=default_value,
+                            menu_icon="arrow-return-right", default_index=st.session_state.main,
                             styles={
             "container": {"padding": "5!important", "background-color": "#fafafa"},
             "icon": {"color": "orange", "font-size": "18px"},
@@ -64,6 +65,7 @@ def main_page(orisetting, cleanedsetting):
             "nav-link-selected": {"background-color": "orange"},
         }
         )
+        
 
     if choose2 == "Protein-TF Correlation":
         
@@ -76,6 +78,7 @@ def main_page(orisetting, cleanedsetting):
         
         data_page(path_data)
    
-    value = mainTitle2idx[choose2]
-    st.session_state["main"] = value
+    
+    st.session_state.main = mainTitle2idx[choose2]
+    
     

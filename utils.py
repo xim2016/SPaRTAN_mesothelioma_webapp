@@ -6,6 +6,17 @@ import pandas as pd
 import seaborn as sns
 
 
+def set_page_container_style(prcnt_width: int = 75):
+    max_width_str = f"max-width: {prcnt_width}%;"
+    st.markdown(f"""
+                <style> 
+                
+                .appview-container .main .block-container{{{max_width_str}}}
+                </style>    
+                """,
+                unsafe_allow_html=True,
+                )
+
 def img2buf(img_path: str):
     img = Image.open(img_path)
     buf = BytesIO()
