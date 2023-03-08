@@ -6,16 +6,16 @@ from utils import hide_table_index, hide_dataframe_index
 import os
 from PIL import Image
 
-def set_page_container_style(prcnt_width: int = 75):
-    max_width_str = f"max-width: {prcnt_width}%;"
-    st.markdown(f"""
-                <style> 
+# def set_page_container_style(prcnt_width: int = 75):
+#     max_width_str = f"max-width: {prcnt_width}%;"
+#     st.markdown(f"""
+#                 <style> 
                 
-                .appview-container .main .block-container{{{max_width_str}}}
-                </style>    
-                """,
-                unsafe_allow_html=True,
-                )
+#                 .appview-container .main .block-container{{{max_width_str}}}
+#                 </style>    
+#                 """,
+#                 unsafe_allow_html=True,
+#                 )
 
 
 # def show_pdf(file_path):
@@ -25,14 +25,14 @@ def set_page_container_style(prcnt_width: int = 75):
 #     st.markdown(pdf_display, unsafe_allow_html=True)
 
 
-page_style = """
-        <style>
-        #MainMenu {visibility: hidden;}  
-        footer  {visibility: hidden;}  
-        div.css-1vq4p4l.e1fqkh3o4{padding: 2rem 1rem 1.5rem;}
-        div.block-container{padding-top:3rem;}
-        </style>
-        """
+# page_style = """
+#         <style>
+#         #MainMenu {visibility: hidden;}  
+#         footer  {visibility: hidden;}  
+#         div.css-1vq4p4l.e1fqkh3o4{padding: 2rem 1rem 1.5rem;}
+#         div.block-container{padding-top:3rem;}
+#         </style>
+#         """
 
 # st.write('<style>div.block-container{padding-top:1rem;}</style>', unsafe_allow_html=True)
 # st.write('<style>div.css-1vq4p4l.e1fqkh3o4{padding: 4rem 1rem 1.5rem;}</style>', unsafe_allow_html=True)
