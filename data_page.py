@@ -116,7 +116,7 @@ def data_page(path_data):
         if selected_sub == "by Protein":
 
             path_ADT = Path("./data/ADT_data/violinPlot")
-            c1, c2 = st.columns([5,2])
+            c1, c2 = st.columns([3,1])
             pro_selected = c1.selectbox(
                 'Protein',
                 list(protein_names.loc['x', :]),
@@ -160,7 +160,7 @@ def data_page(path_data):
         if selected_sub2 == "Violin plot":
 
             path_gene = Path("./data/mRNA_data/violinPlot")
-            c1, c2 = st.columns([5,2])
+            c1, c2 = st.columns([3,1])
             gene_selected = c1.selectbox(
                 'Gene',
                 gene_list,
