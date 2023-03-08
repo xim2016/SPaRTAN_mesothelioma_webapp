@@ -52,7 +52,7 @@ cell_count.index.name = None
 # get the gene names of mRNA violin plot
 path_mRNA = ("./data/mRNA_data/violinPlot")
 
-gene_list = [x.split(".")[0][11:] for x in os.listdir(path_mRNA)]
+gene_list = sorted([x.split(".")[0][11:] for x in os.listdir(path_mRNA)])
 
 
 def data_page(path_data):

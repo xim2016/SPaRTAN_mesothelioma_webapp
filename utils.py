@@ -4,6 +4,8 @@ import matplotlib.pyplot as plt
 import streamlit as st
 import pandas as pd
 import seaborn as sns
+from statsmodels.formula.api import ols
+import statsmodels.api as sm
 
 
 def set_page_container_style(prcnt_width: int = 75):
@@ -36,11 +38,22 @@ def convert_df_to_csv(df):
     # IMPORTANT: Cache the conversion to prevent computation on every rerun
     return df.to_csv().encode('utf-8')
 
-def violin_plot(title, data_group, x, y, width, height):
+def anova_test(df, tf):
+    if len(set(df['Dataset']))== 1: return(pd.NA)
+    model = ols(f'{tf} ~ C(Dataset)', data=df).fit()
+    anova_table = sm.stats.anova_lm(model, typ=2)
+    pvalue = anova_table.iloc[0,3]
+    return(pvalue)    
+
+
+def violin_plot(title, data_group, x, y, width, height, pvalue=pd.NA):
     fig, ax = plt.subplots(figsize=(width, height))
 
     sns.violinplot(x=x, y=y, data=data_group, ax=ax)
-    ax.set_title("{} ".format(title),  fontsize=26)
+    if pd.isnull(pvalue):
+        ax.set_title("{} ".format(title),  fontsize=26)
+    else:
+        ax.set_title("{}    Anova test pvalue = {:.2E}".format(title, pvalue),  fontsize=26)
     ax.set_ylabel("TF rank", fontsize=20)
     ax.set_xlabel("")
     plt.xticks(rotation=45, fontsize=16)

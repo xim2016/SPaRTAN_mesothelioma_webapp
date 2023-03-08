@@ -5,7 +5,7 @@ import pandas as pd
 import streamlit as st
 from streamlit_option_menu import option_menu
 
-from utils import convert_df_to_csv, img2buf, load_data, violin_plot
+from utils import convert_df_to_csv, img2buf, load_data, violin_plot, anova_test
 from register_load_widget_state import  persist
 
 # def set_page_container_style(prcnt_width: int = 75):
@@ -18,6 +18,7 @@ from register_load_widget_state import  persist
 #                 """,
 #                 unsafe_allow_html=True,
 #                 )
+
 
 
 my_theme = {'txc_inactive': 'black', 'menu_background': 'white',
@@ -103,9 +104,12 @@ def TF_page(path_data):
         TFs_selected = st.multiselect('TFs', tfall,  key=persist("tfpage_tab1_tf"))
 
         for tf in TFs_selected:
-            df_ranks = df_ranks_all.loc[:, [tf, "Celltype"]]
-            fig = violin_plot(tf, df_ranks, "Celltype",tf, 25, 5)
-            st.pyplot(fig)
+            df_ranks = df_ranks_all.loc[:, [tf, "Celltype", "Dataset"]]
+            patients = sorted(set(df_ranks["Dataset"]))
+            for p in patients:
+                df_ranks_p = df_ranks.loc[df_ranks['Dataset']==p,]
+                fig = violin_plot(tf + " of " + p, df_ranks_p, "Celltype",tf, 25, 5)
+                st.pyplot(fig)
         s_TFs = "_".join(TFs_selected)
         s_TFs if len(s_TFs) <= 100 else s_TFs[:100]
         datafile_out = f"TFranks--{s_TFs}.csv"
@@ -146,7 +150,7 @@ def TF_page(path_data):
 
         # st.session_state["2_celltype"] = celltypeAll.index(s_celltype)
         s_celltype = st.selectbox(f'Cell type ({len(celltypeAll)})', celltypeAll,  key=persist("tfpage_tab2_type"),   
-                                  format_func=lambda x: x + " (Num of donors: " + str(len(type2ds[x])) + ")")
+                                  format_func=lambda x: x + " (Num of patients: " + str(len(type2ds[x])) + ")")
 
         imgfile = str(
             path_data / f"TFrank/within_celltype/figure/heatmap_TFrank_samples_{s_celltype}.png")
@@ -205,14 +209,15 @@ def TF_page(path_data):
         tf3_selected = st.multiselect('TFs', tfall,  key=persist("tfpage_tab3_tf"))
 
         type3_selected = st.multiselect(f'Cell types', celltypeAll,  key=persist("tfpage_tab3_type"),
-                                 format_func=lambda x: x + " (Num of donors: " + str(len(type2ds[x])) + ")")
+                                 format_func=lambda x: x + " (Num of patients: " + str(len(type2ds[x])) + ")")
 
 
         for tf in tf3_selected:
             for type in type3_selected:
                 df_ranks_2 = df_ranks_all.loc[df_ranks_all['Celltype']==type, [tf, "Dataset"]]
                 # group_order_donor = type2ds[type]
-                fig = violin_plot(f"{tf} in {type}", df_ranks_2, "Dataset", tf, 25,5)
+                pvalue = anova_test(df_ranks_2, tf)
+                fig = violin_plot(f"{tf} in {type}", df_ranks_2, "Dataset", tf, 25,5, pvalue)
                 st.pyplot(fig)
 
         s3_TFs = "_".join(tf3_selected)

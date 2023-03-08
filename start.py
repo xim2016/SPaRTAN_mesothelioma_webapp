@@ -3,11 +3,18 @@ import streamlit as st
 
 from streamlit_option_menu import option_menu
 
-from main_page import main_page
+# from main_page import main_page
 
 from register_load_widget_state import  load_widget_state
 
-# Image.MAX_IMAGE_PIXELS = None
+from pathlib import Path
+
+from correlation_page import correlation_page
+from data_page import data_page
+from TF_page import TF_page
+
+from PIL import Image
+Image.MAX_IMAGE_PIXELS = None
 
 # from utils import set_page_container_style
 # def set_page_container_style(prcnt_width: int = 75):
@@ -39,29 +46,50 @@ page_style = """
 # set_page_container_style(75)
 
 
+# with st.sidebar:
+#     choose1 = option_menu("Testing set", ["CLR1norm","CLR2norm"],
+#                          icons=['clipboard-data',
+#                                 'lightning-charge'],
+#                          menu_icon="app-indicator", default_index=0,
+#                          styles={
+#         "container": {"padding": "5!important", "background-color": "#fafafa"},
+#         "icon": {"color": "orange", "font-size": "22px"},
+#         "nav-link": {"font-size": "16px", "text-align": "left", "margin": "0px", "--hover-color": "#eee"},
+#         "nav-link-selected": {"background-color": "#02ab21"},
+#     }
+#     )
+# cleaned_setting = choose1.replace(" ","_")
+# load_widget_state()
+# main_page(choose1, cleaned_setting)
+
+load_widget_state()
+path_data = Path(f"./data/CLR1norm") 
+
 with st.sidebar:
-    choose1 = option_menu("Testing set", ["CLR1norm","CLR2norm"],
-                         icons=['clipboard-data',
-                                'lightning-charge'],
-                         menu_icon="app-indicator", default_index=0,
-                         styles={
+    # default_value = st.session_state["main"] if "main" in st.session_state else 0
+    # print( "main" in st.session_state)
+    choose2 = option_menu("Menu", ["Data Info", "TF Analyses", "Protein-TF Correlation"],
+                        icons=['clipboard-data',
+                                'lightning-charge', 'bar-chart-line'],
+                        menu_icon="arrow-return-right", default_index=0,
+                        styles={
         "container": {"padding": "5!important", "background-color": "#fafafa"},
-        "icon": {"color": "orange", "font-size": "22px"},
-        "nav-link": {"font-size": "16px", "text-align": "left", "margin": "0px", "--hover-color": "#eee"},
-        "nav-link-selected": {"background-color": "#02ab21"},
+        "icon": {"color": "orange", "font-size": "18px"},
+        "nav-link": {"font-size": "14px", "text-align": "left", "margin": "0px", "--hover-color": "#eee"},
+        "nav-link-selected": {"background-color": "orange"},
     }
     )
-cleaned_setting = choose1.replace(" ","_")
-load_widget_state()
-main_page(choose1, cleaned_setting)
-# if choose1 == "Setting_0":
+    
 
-#     main_page(choose1)
+if choose2 == "Protein-TF Correlation":
+    
+    correlation_page(path_data)
 
-# elif choose1 == "Setting 1":
+elif choose2 == "TF Analyses":
+    
+    TF_page(path_data)
+elif choose2 == "Data Info":
+    
+    data_page(path_data)
 
-#     main_page(choose1)
 
-# elif choose1 == "CLR2norm":
-
-#     main_page(choose1)
