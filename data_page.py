@@ -38,7 +38,7 @@ from PIL import Image
 # st.write('<style>div.css-1vq4p4l.e1fqkh3o4{padding: 4rem 1rem 1.5rem;}</style>', unsafe_allow_html=True)
 
 
-set_page_container_style(75)
+# set_page_container_style(75)
 
 
 path = "./data"
