@@ -38,7 +38,7 @@ from PIL import Image
 # st.write('<style>div.css-1vq4p4l.e1fqkh3o4{padding: 4rem 1rem 1.5rem;}</style>', unsafe_allow_html=True)
 
 
-# set_page_container_style(75)
+# set_page_container_style(75s)
 
 
 path = "./data"
@@ -116,14 +116,14 @@ def data_page(path_data):
         if selected_sub == "by Protein":
 
             path_ADT = Path("./data/ADT_data/violinPlot")
-            c1, c2 = st.columns(2)
+            c1, c2 = st.columns([5,2])
             pro_selected = c1.selectbox(
                 'Protein',
                 list(protein_names.loc['x', :]),
                 0
             )
 
-            imgfile = str(path_ADT / f"ViolinPlot_CLR2_{pro_selected}.TotalSeqC.png"
+            imgfile = str(path_ADT / f"ViolinPlot_ByCLR1_{pro_selected}-TotalSeqC.png"
                           )
 
             st.image(imgfile)
@@ -160,7 +160,7 @@ def data_page(path_data):
         if selected_sub2 == "Violin plot":
 
             path_gene = Path("./data/mRNA_data/violinPlot")
-            c1, c2 = st.columns(2)
+            c1, c2 = st.columns([5,2])
             gene_selected = c1.selectbox(
                 'Gene',
                 gene_list,

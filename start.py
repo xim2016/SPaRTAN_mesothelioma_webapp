@@ -43,7 +43,6 @@ page_style = """
 
 st.markdown(page_style, unsafe_allow_html=True)
 
-# set_page_container_style(75)
 
 
 # with st.sidebar:
