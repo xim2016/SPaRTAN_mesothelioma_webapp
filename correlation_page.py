@@ -50,7 +50,7 @@ def correlation_page(path_data,last_select=""):
     # s_celltype = c_celltype.selectbox(f'Cell Type ({len(celltypes)})', celltypes, 2, format_func=lambda x: x + " (Num of samples: " + str(celltype2Nsample[x]) + ")")
     s_celltype = c_celltype.selectbox(f'Cell Type ({len(celltypes)})', celltypes, key=persist("corrpage_type"), format_func=lambda x: x + " (Num of samples: " + str(celltype2Nsample[x]) + ")")
 
-    proteins = celltype2protein[s_celltype]
+    proteins = sorted(celltype2protein[s_celltype])
    
     # # Check if session state object exists
     # if "selected_protein" not in st.session_state:

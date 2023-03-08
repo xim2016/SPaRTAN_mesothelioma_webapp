@@ -51,7 +51,7 @@ def TF_page(path_data):
     cached_data = load_rootdata(path_data)
     df_info = cached_data[0]
     df_ranks_all = cached_data[1]
-    tfall = df_ranks_all.columns[:-2]
+    tfall = sorted(df_ranks_all.columns[:-2])
 
     type2ds = {}
     for type in list(df_info.index):
