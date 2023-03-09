@@ -12,6 +12,7 @@ from pathlib import Path
 from correlation_page import correlation_page
 from data_page import data_page
 from TF_page import TF_page
+from nanostring_page import nanostring_page
 
 from PIL import Image
 Image.MAX_IMAGE_PIXELS = None
@@ -67,8 +68,8 @@ path_data = Path(f"./data/CLR1norm")
 with st.sidebar:
     # default_value = st.session_state["main"] if "main" in st.session_state else 0
     # print( "main" in st.session_state)
-    choose2 = option_menu("Menu", ["Data Info", "TF Analyses", "Protein-TF Correlation"],
-                        icons=['clipboard-data',
+    choose2 = option_menu("Menu", ["Cite-seq Data Info","Nanostring Data Info", "TF Analyses", "Protein-TF Correlation"],
+                        icons=['clipboard-data','clipboard-data',
                                 'lightning-charge', 'bar-chart-line'],
                         menu_icon="arrow-return-right", default_index=0,
                         styles={
@@ -87,8 +88,11 @@ if choose2 == "Protein-TF Correlation":
 elif choose2 == "TF Analyses":
     
     TF_page(path_data)
-elif choose2 == "Data Info":
+elif choose2 == "Cite-seq Data Info":
     
     data_page(path_data)
+
+elif choose2 == "Nanostring Data Info":
+    nanostring_page()
 
 
