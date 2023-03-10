@@ -41,7 +41,7 @@ my_theme = {'txc_inactive': 'black', 'menu_background': 'white',
 
 def TF_page(path_data):
 
-    st.write("TF--g")
+    
     files = (path_data / "TFrank/within_celltype").iterdir()
     files = [i.name.replace('TFrank_samples_', '') for i in files]
     files = list(filter(lambda x: x != "figure", files))
@@ -83,7 +83,7 @@ def TF_page(path_data):
                            menu_icon="cast", default_index=0, orientation="horizontal",
                            styles={
         "container": {"padding": "20!important", "background-color": "#eee"},
-        "icon": {"color": "orange", "font-size": "22px"},
+        "icon": {"color": "orange", "font-size": "20px"},
         "nav-link": {"font-size": "18px", "text-align": "center", "margin": "0px", "--hover-color": "#fafafa"},
         "nav-link-selected": {"background-color": "#80adcc"},
         "separator": "A"

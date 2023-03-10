@@ -214,12 +214,16 @@ def data_page(path_data):
             imgfile3 = str(path_violin/ f"ViolinPlot_InferCNV_{types[2]}.png")              
             # c1.markdown(f'''   #### {types[0]}''')
             # c1.text("    ")
-            c1.write(f"#### {types[0]}")
+            title = f'<p style="font-size: 20px;text-align: center">{types[0]}</p>'
+            c1.markdown(title, unsafe_allow_html=True)
+            # c1.write(f"#### {types[0]}")
             c1.image(imgfile1)
-            c2.write(f"#### {types[1]}")
+            title = f'<p style="font-size: 20px;text-align: center">{types[1]}</p>'
+            c2.markdown(title, unsafe_allow_html=True)
             c2.image(imgfile2)
             c1.write("#")
-            c1.write(f"#### {types[2]}")
+            title = f'<p style="font-size: 20px;text-align: center">{types[2]}</p>'
+            c1.markdown(title, unsafe_allow_html=True)
             c1.image(imgfile3)
 
         elif selected_sub3 == "By patient":
