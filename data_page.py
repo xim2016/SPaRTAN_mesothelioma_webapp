@@ -6,6 +6,19 @@ from utils import hide_table_index, hide_dataframe_index
 import os
 from PIL import Image
 
+page_style = """
+        <style>
+        #MainMenu {visibility: hidden;}  
+        footer  {visibility: hidden;}  
+        div.css-1vq4p4l.e1fqkh3o4{padding: 2rem 1rem 1.5rem;}
+        div.block-container{padding-top:3rem;}
+        </style>
+        """
+
+# st.write('<style>div.block-container{padding-top:1rem;}</style>', unsafe_allow_html=True)
+# st.write('<style>div.css-1vq4p4l.e1fqkh3o4{padding: 4rem 1rem 1.5rem;}</style>', unsafe_allow_html=True)
+
+st.markdown(page_style, unsafe_allow_html=True)
 
 path = "./data"
 protein_names = pd.read_csv(Path(path)/"protein_names.csv", index_col=0).T
@@ -185,7 +198,7 @@ def data_page(path_data):
         # 858d83
         if selected_sub3 == "Violin plot":
 
-            path_violin = Path("./data/infercnv/violinPlot")
+            path_violin = Path("./data/inferCNV/violinPlot")
             c1, c2 = st.columns([21,20])
             type_selected = c1.selectbox(
                 'Cell types',
@@ -195,11 +208,11 @@ def data_page(path_data):
 
             imgfile = str(path_violin/ f"ViolinPlot_InferCNV_{type_selected}.png"
                           )
-            st.write(imgfile)
+
             st.image(imgfile)
 
         elif selected_sub3 == "Heatmap":
-            path_heatmap = Path("./data/infercnv/heatmap")
+            path_heatmap = Path("./data/inferCNV/heatmap")
             
             type_selected = st.selectbox(
                 'Patients',

@@ -20,6 +20,19 @@ from register_load_widget_state import  persist
 #                 )
 
 
+page_style = """
+        <style>
+        #MainMenu {visibility: hidden;}  
+        footer  {visibility: hidden;}  
+        div.css-1vq4p4l.e1fqkh3o4{padding: 2rem 1rem 1.5rem;}
+        div.block-container{padding-top:3rem;}
+        </style>
+        """
+
+# st.write('<style>div.block-container{padding-top:1rem;}</style>', unsafe_allow_html=True)
+# st.write('<style>div.css-1vq4p4l.e1fqkh3o4{padding: 4rem 1rem 1.5rem;}</style>', unsafe_allow_html=True)
+
+st.markdown(page_style, unsafe_allow_html=True)
 
 my_theme = {'txc_inactive': 'black', 'menu_background': 'white',
             'txc_active': 'white', 'option_active': 'blue'}
