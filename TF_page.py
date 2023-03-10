@@ -41,7 +41,7 @@ my_theme = {'txc_inactive': 'black', 'menu_background': 'white',
 
 def TF_page(path_data):
 
-
+    st.write("TF--g")
     files = (path_data / "TFrank/within_celltype").iterdir()
     files = [i.name.replace('TFrank_samples_', '') for i in files]
     files = list(filter(lambda x: x != "figure", files))
@@ -77,7 +77,7 @@ def TF_page(path_data):
     
    
 
-    selected = option_menu(None, ["Analysis by TF", "Analysis by cell-type", "Analysis by TF & cell-type"],
+    selected = option_menu(None, ["Analysis by TFs (across all cell-types)", "Analysis by TFs (cell-type specific view)", "Analysis by cell-type"],
                         #    icons=["bi bi-grid-3x3", "bi bi-align-end",
                         #           "bi bi-align-bottom"],
                            menu_icon="cast", default_index=0, orientation="horizontal",
@@ -85,7 +85,7 @@ def TF_page(path_data):
         "container": {"padding": "20!important", "background-color": "#eee"},
         "icon": {"color": "orange", "font-size": "22px"},
         "nav-link": {"font-size": "18px", "text-align": "center", "margin": "0px", "--hover-color": "#fafafa"},
-        "nav-link-selected": {"background-color": "#FD5816"},
+        "nav-link-selected": {"background-color": "#80adcc"},
         "separator": "A"
     })
 
@@ -103,7 +103,7 @@ def TF_page(path_data):
     #     datafile = str(path_data / "TFrank/mean/TFrank_celltypeMean.csv")
     #     datafile_out = "TFrank_celltypeMean.csv"
 
-    if selected == 'Analysis by TF':
+    if selected == 'Analysis by TFs (across all cell-types)':
         st.info('For each TF, violin plot shows its ranks across cell types. You can select multiple TFs of your interest from TFs list for comparison.')
         # violin plot for selected TFs]]
         # defaults = st.session_state['1_tf'] if "1_tf" in st.session_state and set(st.session_state['1_tf']).issubset(set(tfall)) else [tfall[0]]
@@ -201,7 +201,7 @@ def TF_page(path_data):
         if cb:
             st.dataframe(df_data.style.format(precision=0), use_container_width=True)
 
-    elif selected == "Analysis by TF & cell-type":
+    elif selected == "Analysis by TFs (cell-type specific view)":
         c3_1, c3_2 = st.columns(2)
 
         # defaults = st.session_state['3_tf'] if "3_tf" in st.session_state and set(st.session_state['3_tf']).issubset(set(tfall)) else [tfall[0]]

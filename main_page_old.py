@@ -3,10 +3,9 @@ import streamlit as st
 from PIL import Image
 from  streamlit_option_menu import option_menu
 
-
+from correlation_page import correlation_page
 from data_page import data_page
-from spartan_page import spartan_page
-
+from TF_page import TF_page
 # from utils import set_page_container_style
 
 from pathlib import Path
@@ -55,9 +54,9 @@ def main_page(setting):
     with st.sidebar:
         default_value = st.session_state["main"] if "main" in st.session_state else 0
         # print( "main" in st.session_state)
-        choose2 = option_menu(setting, ["CITE-seq overview", "SPaRTAN analysis"],
+        choose2 = option_menu(setting, ["Data Info", "TF Analyses", "Protein-TF Correlation"],
                             icons=['clipboard-data',
-                                    'lightning-charge'],
+                                    'lightning-charge', 'bar-chart-line'],
                             menu_icon="arrow-return-right", default_index=default_value,
                             styles={
             "container": {"padding": "5!important", "background-color": "#fafafa"},
@@ -68,14 +67,18 @@ def main_page(setting):
         )
         
 
-    if choose2 == "SPaRTAN analysis":
+    if choose2 == "Protein-TF Correlation":
         
-        spartan_page(choose2)
-    elif choose2 == "CITE-seq overview":
+        correlation_page(path_data)
+
+    elif choose2 == "TF Analyses":
         
-        data_page(choose2)
+        TF_page(path_data)
+    elif choose2 == "Data Info":
+        
+        data_page(path_data)
    
     
-    # st.session_state.main = mainTitle2idx[choose2]
+    st.session_state.main = mainTitle2idx[choose2]
     
     

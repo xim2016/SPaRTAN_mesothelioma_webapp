@@ -9,17 +9,18 @@ from register_load_widget_state import  load_widget_state
 
 from pathlib import Path
 
-from correlation_page import correlation_page
-from data_page import data_page
-from TF_page import TF_page
+# from correlation_page import correlation_page
+# from data_page import data_page
+# from TF_page import TF_page
 from nanostring_page import nanostring_page
+from main_page import main_page
 
 from PIL import Image
 Image.MAX_IMAGE_PIXELS = None
 
 # from utils import set_page_container_style
 # def set_page_container_style(prcnt_width: int = 75):
-max_width_str = f"max-width: {75}%;"
+max_width_str = f"max-width: {80}%;"
 st.markdown(f"""
             <style> 
             
@@ -68,9 +69,9 @@ path_data = Path(f"./data/CLR1norm")
 with st.sidebar:
     # default_value = st.session_state["main"] if "main" in st.session_state else 0
     # print( "main" in st.session_state)
-    choose2 = option_menu("Menu", ["Cite-seq Data Info","Nanostring Data Info", "TF Analyses", "Protein-TF Correlation"],
-                        icons=['clipboard-data','clipboard-data',
-                                'lightning-charge', 'bar-chart-line'],
+    choose1 = option_menu("Menu", ["nCounter mouse immunology panel","Human CITE-seq data"],
+                        icons=['clipboard-data',
+                                'lightning-charge'],
                         menu_icon="arrow-return-right", default_index=0,
                         styles={
         "container": {"padding": "5!important", "background-color": "#fafafa"},
@@ -79,20 +80,24 @@ with st.sidebar:
         "nav-link-selected": {"background-color": "orange"},
     }
     )
-    
 
-if choose2 == "Protein-TF Correlation":
-    
-    correlation_page(path_data)
 
-elif choose2 == "TF Analyses":
-    
-    TF_page(path_data)
-elif choose2 == "Cite-seq Data Info":
-    
-    data_page(path_data)
 
-elif choose2 == "Nanostring Data Info":
+
+
+
+if choose1 == "nCounter mouse immunology panel":
     nanostring_page()
+#     correlation_page(path_data)
+
+elif choose1 == "Human CITE-seq data":
+    main_page(choose1)
+#     TF_page(path_data)
+# elif choose2 == "Cite-seq Data Info":
+    
+#     data_page(path_data)
+
+# elif choose2 == "Nanostring Data Info":
+#     nanostring_page()
 
 

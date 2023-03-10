@@ -36,8 +36,9 @@ gene_list = sorted([x.split(".")[0][11:] for x in os.listdir(path_mRNA)])
 
 def data_page(path_data):
 
+    path_data = Path(f"./data/CLR1norm") 
     spartan_data = pd.read_csv(
-        Path(path_data)/"celltype_info.csv", index_col=0)
+        path_data/"celltype_info.csv", index_col=0)
 
     spartan_data.dropna(inplace=True)
     # if "RNArate" in spartan_data.columns:
@@ -45,9 +46,9 @@ def data_page(path_data):
     #         decimals=1).astype(object)
     
 
-    selected = option_menu(None, ["Overview", "Protein", "mRNA", "CNV", "SPaRTAN"],
+    selected = option_menu(None, ["Metadata", "Cell-type Overview", "Protein", "mRNA", "inferCNV","PROGENy pathway"],
                            icons=["clipboard", "hdd-fill",
-                                  "hdd-stack", "clipboard-plus", 'bar-chart-line'],
+                                  "hdd-stack", "clipboard-plus", 'bar-chart-line', "bi bi-align-end"],
                            menu_icon="cast", default_index=0, orientation="horizontal",
                            styles={
         "container": {"padding": "5!important", "background-color": "#eee"},
@@ -57,7 +58,7 @@ def data_page(path_data):
         # "separator":"."
     })
 
-    if selected == "Overview":
+    if selected == "Metadata":
 
         hide_dataframe_index()
         # st.write("Donors (4):")
@@ -77,6 +78,12 @@ def data_page(path_data):
         # show_dataframe_index()
         st.markdown('''###### Cell count:''')
         st.table(cell_count)
+    
+    elif selected ==  "Cell-type Overview":
+        path = "./data"
+        imgfile = str(Path(path) / f"Mesothelioma_scRNAseq_CelltypeAssignment_3Patients.png")
+
+        st.image(imgfile)
 
     elif selected == "Protein":
 
@@ -175,16 +182,9 @@ def data_page(path_data):
             # show_pdf(imgfile)
             # st.image(image)
 
-    elif selected == "SPaRTAN":
-        # st.info("SPaRTAN moodule was trained on dataset per donor per cell type. We selected genes by intersecting genes in TF-target gene prior matrix and filtered the genes that have to be expressed in 30\% cells in all donors in a single cell type. Not every cell type has cells(or enough cells) for every donor to run SPaRTAN module. We specify each module dataset has minimal 50 cells")
 
-        st.dataframe(spartan_data.style.format(
-            {'RNArate': '{:.2f}', 'number of genes': '{:.0f}', 'number of TFs': '{:.0f}', 'number of proteins': '{:.0f}' }), use_container_width=True)
-        # from st_aggrid import AgGrid
-        # AgGrid(spartan_data, height=500, fit_columns_on_grid_load=True)
-  
-    elif selected == "CNV":
-        selected_sub3 = option_menu(None, ["Violin plot", "Heatmap"],
+    elif selected == "inferCNV":
+        selected_sub3 = option_menu(None, ["By cell-type", "By patient"],
                                     #    icons=["clipboard", "hdd-fill", "hdd-stack", "clipboard-plus"],
                                     menu_icon="cast", default_index=0, orientation="horizontal",
                                     styles={
@@ -196,22 +196,33 @@ def data_page(path_data):
         }
         )
         # 858d83
-        if selected_sub3 == "Violin plot":
+        if selected_sub3 == "By cell-type":
 
             path_violin = Path("./data/inferCNV/violinPlot")
-            c1, c2 = st.columns([21,20])
-            type_selected = c1.selectbox(
-                'Cell types',
-                celltypes,
-                0
-            )
 
-            imgfile = str(path_violin/ f"ViolinPlot_InferCNV_{type_selected}.png"
-                          )
+            # c1, c2 = st.columns([21,20])
+            # type_selected = c1.selectbox(
+            #     'Cell types',
+            #     celltypes,
+            #     0
+            # )
+            types = ["LungEpithelium","MalignantEpithelial","ProliferatingCell"]
+            c1,c2=st.columns([2,2])
 
-            st.image(imgfile)
+            imgfile1 = str(path_violin/ f"ViolinPlot_InferCNV_{types[0]}.png")
+            imgfile2 = str(path_violin/ f"ViolinPlot_InferCNV_{types[1]}.png")
+            imgfile3 = str(path_violin/ f"ViolinPlot_InferCNV_{types[2]}.png")              
+            # c1.markdown(f'''   #### {types[0]}''')
+            # c1.text("    ")
+            c1.write(f"#### {types[0]}")
+            c1.image(imgfile1)
+            c2.write(f"#### {types[1]}")
+            c2.image(imgfile2)
+            c1.write("#")
+            c1.write(f"#### {types[2]}")
+            c1.image(imgfile3)
 
-        elif selected_sub3 == "Heatmap":
+        elif selected_sub3 == "By patient":
             path_heatmap = Path("./data/inferCNV/heatmap")
             
             type_selected = st.selectbox(
@@ -225,4 +236,46 @@ def data_page(path_data):
             imgfile = str(path_heatmap / f"InfercnvHeatmap_NewCellTypebCutoff0.001_Pt{p_number}.png")
                           
 
+            st.image(imgfile)
+    elif selected == "PROGENy pathway":
+
+        selected_sub4 = option_menu(None, ["Violin plot", "Heatmap"],
+                                    #    icons=["clipboard", "hdd-fill", "hdd-stack", "clipboard-plus"],
+                                    menu_icon="cast", default_index=0, orientation="horizontal",
+                                    styles={
+            "container": {"padding": "5!important", "background-color": "#eee"},
+            # "icon": {"color": "orange", "font-size": "14px"},
+            "nav-link": {"font-size": "18px", "text-align": "center", "margin": "0px", "--hover-color": "#fafafa"},
+            "nav-link-selected": {"background-color": "#80adcc"},
+            # "separator":"."
+        }
+        )
+        # 858d83
+        if selected_sub4 == "Violin plot":
+
+            path_violin = Path("./data/PROGENy/violinPlot")
+
+            c1, c2 = st.columns([21,20])
+            type_selected = c1.selectbox(
+                'Cell types',
+                celltypes,
+                0
+            )
+          
+            imgfile = str(path_violin/ f"ViolinPlot_PROGENyPathwayActivity_IndividualPt_{type_selected}.png")
+                         
+            st.image(imgfile)
+
+        elif selected_sub4 == "Heatmap":
+            path_heatmap = Path("./data/inferCNV/heatmap")
+            
+            c3, c4 = st.columns([21,20])
+            type_selected = c3.selectbox(
+                'Cell types',
+                celltypes,
+                0
+            )
+          
+            imgfile = str(path_heatmap/ f"ComplexHeatmapCorrel_PathwayAct_CytoskeletonExp_{type_selected}.png")
+                         
             st.image(imgfile)
