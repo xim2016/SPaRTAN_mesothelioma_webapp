@@ -6,46 +6,12 @@ from utils import hide_table_index, hide_dataframe_index
 import os
 from PIL import Image
 
-# def set_page_container_style(prcnt_width: int = 75):
-#     max_width_str = f"max-width: {prcnt_width}%;"
-#     st.markdown(f"""
-#                 <style> 
-                
-#                 .appview-container .main .block-container{{{max_width_str}}}
-#                 </style>    
-#                 """,
-#                 unsafe_allow_html=True,
-#                 )
-
-
-# def show_pdf(file_path):
-#     with open(file_path,"rb") as f:
-#         base64_pdf = base64.b64encode(f.read()).decode('utf-8')
-#     pdf_display = f'<iframe src="data:application/pdf;base64,{base64_pdf}" width="950" height="800" type="application/pdf"></iframe>'
-#     st.markdown(pdf_display, unsafe_allow_html=True)
-
-
-# page_style = """
-#         <style>
-#         #MainMenu {visibility: hidden;}  
-#         footer  {visibility: hidden;}  
-#         div.css-1vq4p4l.e1fqkh3o4{padding: 2rem 1rem 1.5rem;}
-#         div.block-container{padding-top:3rem;}
-#         </style>
-#         """
-
-# st.write('<style>div.block-container{padding-top:1rem;}</style>', unsafe_allow_html=True)
-# st.write('<style>div.css-1vq4p4l.e1fqkh3o4{padding: 4rem 1rem 1.5rem;}</style>', unsafe_allow_html=True)
-
-
-# set_page_container_style(75s)
-
 
 path = "./data"
 protein_names = pd.read_csv(Path(path)/"protein_names.csv", index_col=0).T
 celltype_names = pd.read_csv(Path(path)/"celltype_names.csv", index_col=0).T
 dataset_info = pd.read_csv(Path(path)/"dataset_info.csv", index_col=0)
-
+celltypes = celltype_names.iloc[0,:].tolist()
 cell_count = pd.read_csv(Path(path)/"cell_count.csv")
 cell_count.index.name = None
 
@@ -66,9 +32,9 @@ def data_page(path_data):
     #         decimals=1).astype(object)
     
 
-    selected = option_menu(None, ["Overview", "Protein", "mRNA", "SPaRTAN data"],
+    selected = option_menu(None, ["Overview", "Protein", "mRNA", "CNV", "SPaRTAN data"],
                            icons=["clipboard", "hdd-fill",
-                                  "hdd-stack", "clipboard-plus"],
+                                  "hdd-stack", "clipboard-plus", 'bar-chart-line'],
                            menu_icon="cast", default_index=0, orientation="horizontal",
                            styles={
         "container": {"padding": "5!important", "background-color": "#eee"},
@@ -203,3 +169,46 @@ def data_page(path_data):
             {'RNArate': '{:.2f}', 'number of genes': '{:.0f}', 'number of TFs': '{:.0f}', 'number of proteins': '{:.0f}' }), use_container_width=True)
         # from st_aggrid import AgGrid
         # AgGrid(spartan_data, height=500, fit_columns_on_grid_load=True)
+  
+    elif selected == "CNV":
+        selected_sub3 = option_menu(None, ["Violin plot", "Heatmap"],
+                                    #    icons=["clipboard", "hdd-fill", "hdd-stack", "clipboard-plus"],
+                                    menu_icon="cast", default_index=0, orientation="horizontal",
+                                    styles={
+            "container": {"padding": "5!important", "background-color": "#eee"},
+            # "icon": {"color": "orange", "font-size": "14px"},
+            "nav-link": {"font-size": "18px", "text-align": "center", "margin": "0px", "--hover-color": "#fafafa"},
+            "nav-link-selected": {"background-color": "#80adcc"},
+            # "separator":"."
+        }
+        )
+        # 858d83
+        if selected_sub3 == "Violin plot":
+
+            path_violin = Path("./data/infercnv/violinPlot")
+            c1, c2 = st.columns([21,20])
+            type_selected = c1.selectbox(
+                'Cell types',
+                celltypes,
+                0
+            )
+
+            imgfile = str(path_violin/ f"ViolinPlot_InferCNV_{type_selected}.png"
+                          )
+
+            st.image(imgfile)
+        elif selected_sub3 == "Heatmap":
+            path_heatmap = Path("./data/infercnv/heatmap")
+            
+            type_selected = st.selectbox(
+                'Patients',
+                ["Patient 1", "Patient 2", "Patient 3"],
+                0
+            )
+
+            p_number = type_selected.split(" ")[1]
+
+            imgfile = str(path_heatmap / f"InfercnvHeatmap_NewCellTypebCutoff0.001_Pt{p_number}.png")
+                          
+
+            st.image(imgfile)
