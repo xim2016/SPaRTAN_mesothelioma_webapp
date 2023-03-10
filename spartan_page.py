@@ -45,8 +45,8 @@ def spartan_page(setting):
                                 menu_icon="arrow-return-right", default_index=0, orientation="horizontal",
                                 styles={
                 "container": {"padding": "5!important", "background-color": "#fafafa"},
-                "icon": {"color": "orange", "font-size": "22px"},
-                "nav-link": {"font-size": "20px", "text-align": "left", "margin": "0px", "--hover-color": "#eee"},
+                "icon": {"color": "orange", "font-size": "20px"},
+                "nav-link": {"font-size": "18px", "text-align": "left", "margin": "0px", "--hover-color": "#eee"},
                 "nav-link-selected": {"background-color": "#FD5816"},
             }
             )

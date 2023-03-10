@@ -83,8 +83,8 @@ def TF_page(path_data):
                            menu_icon="cast", default_index=0, orientation="horizontal",
                            styles={
         "container": {"padding": "20!important", "background-color": "#eee"},
-        "icon": {"color": "orange", "font-size": "20px"},
-        "nav-link": {"font-size": "18px", "text-align": "center", "margin": "0px", "--hover-color": "#fafafa"},
+        "icon": {"color": "orange", "font-size": "18px"},
+        "nav-link": {"font-size": "16px", "text-align": "center", "margin": "0px", "--hover-color": "#fafafa"},
         "nav-link-selected": {"background-color": "#80adcc"},
         "separator": "A"
     })
