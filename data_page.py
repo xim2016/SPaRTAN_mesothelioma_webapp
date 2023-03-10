@@ -47,8 +47,8 @@ def data_page(path_data):
     
 
     selected = option_menu(None, ["Metadata", "Cell-type Overview", "Protein", "mRNA", "inferCNV","PROGENy pathway"],
-                           icons=["clipboard", "hdd-fill",
-                                  "hdd-stack", "clipboard-plus", 'bar-chart-line', "bi bi-align-end"],
+                        #    icons=["clipboard", "hdd-fill",
+                        #           "hdd-stack", "clipboard-plus", 'bar-chart-line', "bi bi-align-end"],
                            menu_icon="cast", default_index=0, orientation="horizontal",
                            styles={
         "container": {"padding": "5!important", "background-color": "#eee"},
@@ -239,43 +239,43 @@ def data_page(path_data):
             st.image(imgfile)
     elif selected == "PROGENy pathway":
 
-        selected_sub4 = option_menu(None, ["Violin plot", "Heatmap"],
-                                    #    icons=["clipboard", "hdd-fill", "hdd-stack", "clipboard-plus"],
-                                    menu_icon="cast", default_index=0, orientation="horizontal",
-                                    styles={
-            "container": {"padding": "5!important", "background-color": "#eee"},
-            # "icon": {"color": "orange", "font-size": "14px"},
-            "nav-link": {"font-size": "18px", "text-align": "center", "margin": "0px", "--hover-color": "#fafafa"},
-            "nav-link-selected": {"background-color": "#80adcc"},
-            # "separator":"."
-        }
+        # selected_sub4 = option_menu(None, ["Violin plot", "Heatmap"],
+        #                             #    icons=["clipboard", "hdd-fill", "hdd-stack", "clipboard-plus"],
+        #                             menu_icon="cast", default_index=0, orientation="horizontal",
+        #                             styles={
+        #     "container": {"padding": "5!important", "background-color": "#eee"},
+        #     # "icon": {"color": "orange", "font-size": "14px"},
+        #     "nav-link": {"font-size": "18px", "text-align": "center", "margin": "0px", "--hover-color": "#fafafa"},
+        #     "nav-link-selected": {"background-color": "#80adcc"},
+        #     # "separator":"."
+        # }
+        # )
+        # # 858d83
+        # if selected_sub4 == "Violin plot":
+
+        path_violin = Path("./data/PROGENy/violinPlot")
+
+        c1, c2 = st.columns([21,20])
+        type_selected = c1.selectbox(
+            'Cell types',
+            celltypes,
+            0
         )
-        # 858d83
-        if selected_sub4 == "Violin plot":
+        
+        imgfile = str(path_violin/ f"ViolinPlot_PROGENyPathwayActivity_IndividualPt_{type_selected}.png")
+                        
+        st.image(imgfile)
 
-            path_violin = Path("./data/PROGENy/violinPlot")
-
-            c1, c2 = st.columns([21,20])
-            type_selected = c1.selectbox(
-                'Cell types',
-                celltypes,
-                0
-            )
-          
-            imgfile = str(path_violin/ f"ViolinPlot_PROGENyPathwayActivity_IndividualPt_{type_selected}.png")
-                         
-            st.image(imgfile)
-
-        elif selected_sub4 == "Heatmap":
-            path_heatmap = Path("./data/inferCNV/heatmap")
+        # elif selected_sub4 == "Heatmap":
+        #     path_heatmap = Path("./data/inferCNV/heatmap")
             
-            c3, c4 = st.columns([21,20])
-            type_selected = c3.selectbox(
-                'Cell types',
-                celltypes,
-                0
-            )
+        #     c3, c4 = st.columns([21,20])
+        #     type_selected = c3.selectbox(
+        #         'Cell types',
+        #         celltypes,
+        #         0
+        #     )
           
-            imgfile = str(path_heatmap/ f"ComplexHeatmapCorrel_PathwayAct_CytoskeletonExp_{type_selected}.png")
+        #     imgfile = str(path_heatmap/ f"ComplexHeatmapCorrel_PathwayAct_CytoskeletonExp_{type_selected}.png")
                          
-            st.image(imgfile)
+        #     st.image(imgfile)
