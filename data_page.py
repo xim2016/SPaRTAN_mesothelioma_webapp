@@ -45,7 +45,7 @@ def data_page(path_data):
     #         decimals=1).astype(object)
     
 
-    selected = option_menu(None, ["Overview", "Protein", "mRNA", "CNV", "SPaRTAN data"],
+    selected = option_menu(None, ["Overview", "Protein", "mRNA", "CNV", "SPaRTAN"],
                            icons=["clipboard", "hdd-fill",
                                   "hdd-stack", "clipboard-plus", 'bar-chart-line'],
                            menu_icon="cast", default_index=0, orientation="horizontal",
@@ -175,7 +175,7 @@ def data_page(path_data):
             # show_pdf(imgfile)
             # st.image(image)
 
-    elif selected == "SPaRTAN data":
+    elif selected == "SPaRTAN":
         # st.info("SPaRTAN moodule was trained on dataset per donor per cell type. We selected genes by intersecting genes in TF-target gene prior matrix and filtered the genes that have to be expressed in 30\% cells in all donors in a single cell type. Not every cell type has cells(or enough cells) for every donor to run SPaRTAN module. We specify each module dataset has minimal 50 cells")
 
         st.dataframe(spartan_data.style.format(
