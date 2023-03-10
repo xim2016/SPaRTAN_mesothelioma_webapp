@@ -195,8 +195,9 @@ def data_page(path_data):
 
             imgfile = str(path_violin/ f"ViolinPlot_InferCNV_{type_selected}.png"
                           )
-
+            st.write(imgfile)
             st.image(imgfile)
+
         elif selected_sub3 == "Heatmap":
             path_heatmap = Path("./data/infercnv/heatmap")
             
