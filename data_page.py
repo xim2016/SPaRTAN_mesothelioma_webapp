@@ -52,8 +52,8 @@ def data_page(path_data):
                            menu_icon="cast", default_index=0, orientation="horizontal",
                            styles={
         "container": {"padding": "5!important", "background-color": "#eee"},
-        "icon": {"color": "orange", "font-size": "22px"},
-        "nav-link": {"font-size": "18px", "text-align": "center", "margin": "0px", "--hover-color": "#fafafa"},
+        "icon": {"color": "orange", "font-size": "20px"},
+        "nav-link": {"font-size": "16px", "text-align": "center", "margin": "0px", "--hover-color": "#fafafa"},
         "nav-link-selected": {"background-color": "#FD5816"},
         # "separator":"."
     })
@@ -214,7 +214,8 @@ def data_page(path_data):
             imgfile3 = str(path_violin/ f"ViolinPlot_InferCNV_{types[2]}.png")              
             # c1.markdown(f'''   #### {types[0]}''')
             # c1.text("    ")
-            title = f'<p style="font-size: 20px;text-align: center">{types[0]}</p>'
+           
+            title = f'<p style="font-size: 20px;text-align: center">{types[0]} </p>'
             c1.markdown(title, unsafe_allow_html=True)
             # c1.write(f"#### {types[0]}")
             c1.image(imgfile1)
