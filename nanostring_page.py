@@ -26,9 +26,10 @@ gene2path = dict(zip(genenames, genepaths))
 
 
 def nanostring_page():
-    st.markdown("### nCounter mouse immunology panel", True)        
-    c1, c2 = st.columns([7,2])
-    gene_selected = c1.selectbox(
+    # st.markdown("### nCounter mouse immunology panel", True)        
+    title = f'<p style="font-size: 28px;text-align: center; font-weight: 900">nCounter mouse immunology panel </p>'
+    st.markdown(title, unsafe_allow_html=True)
+    gene_selected = st.selectbox(
         'Genes',
         sorted(genenames),
         0

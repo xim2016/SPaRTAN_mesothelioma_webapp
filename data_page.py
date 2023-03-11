@@ -245,7 +245,7 @@ def data_page(path_data):
             st.image(imgfile)
     elif selected == "PROGENy pathway":
 
-        st.info("PROGENy is resource that leverages a large compendium of publicly available signaling perturbation experiments to yield a common core of pathway responsive genes for human and mouse. These, coupled with any statistical method, can be used to infer pathway activities from bulk or single-cell transcriptomics.")
+        st.info("PROGENy is resource that leverages a large compendium of publicly available signaling perturbation experiments to yield a common core of pathway responsive genes for human and mouse.")
 
         # selected_sub4 = option_menu(None, ["Violin plot", "Heatmap"],
         #                             #    icons=["clipboard", "hdd-fill", "hdd-stack", "clipboard-plus"],
