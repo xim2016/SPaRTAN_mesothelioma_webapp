@@ -5,21 +5,6 @@ from utils import img2buf, violin_plot, convert_df_to_csv, load_data
 from register_load_widget_state import  persist
 
 
-
-# page_style = """
-#         <style>
-#         #MainMenu {visibility: hidden;}  
-#         footer  {visibility: hidden;}  
-#         div.css-1vq4p4l.e1fqkh3o4{padding: 2rem 1rem 1.5rem;}
-#         div.block-container{padding-top:3rem;}
-#         </style>
-#         """
-
-# # st.write('<style>div.block-container{padding-top:1rem;}</style>', unsafe_allow_html=True)
-# # st.write('<style>div.css-1vq4p4l.e1fqkh3o4{padding: 4rem 1rem 1.5rem;}</style>', unsafe_allow_html=True)
-
-# st.markdown(page_style, unsafe_allow_html=True)
-
 def correlation_page(path_data,last_select=""):
 
     

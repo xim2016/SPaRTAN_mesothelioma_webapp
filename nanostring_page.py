@@ -5,17 +5,6 @@ from os import listdir
 from os.path import isfile, join
 
 
-# page_style = """
-#         <style>
-#         #MainMenu {visibility: hidden;}  
-#         footer  {visibility: hidden;}  
-#         div.css-1vq4p4l.e1fqkh3o4{padding: 2rem 1rem 1.5rem;}
-#         div.block-container{padding-top:3rem;}
-#         </style>
-#         """
-
-# st.markdown(page_style, unsafe_allow_html=True)
-
 
 def nanostring_page():
 
@@ -30,7 +19,7 @@ def nanostring_page():
      
     title = f'<p style="font-size: 28px;text-align: center; font-weight: 900">nCounter mouse immunology panel </p>'
     st.markdown(title, unsafe_allow_html=True)
-    
+
     gene_selected = st.selectbox(
         'Genes',
         sorted(genenames),

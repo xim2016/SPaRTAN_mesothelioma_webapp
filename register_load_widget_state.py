@@ -1,8 +1,7 @@
-# from streamlit import session_state as _state
 import streamlit as st
 
 _PERSIST_STATE_KEY = f"{__name__}_PERSIST"
-# st.write(_PERSIST_STATE_KEY)
+
 
 def persist(key: str) -> str:
 
@@ -18,10 +17,6 @@ def persist(key: str) -> str:
 def load_widget_state():
 
     """Load persistent widget state."""
-
-    # s_l = [str(key) +"," +  str(value)
-    #         for key, value in st.session_state.items()]
-    # st.write(s_l)
 
     if _PERSIST_STATE_KEY in st.session_state:
         st.session_state.update({
