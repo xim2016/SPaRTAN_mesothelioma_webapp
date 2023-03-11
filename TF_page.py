@@ -115,50 +115,6 @@ def TF_page(path_data):
         if cb:
             st.dataframe(df_data.style.format(precision=0), use_container_width=True)
 
-
-    elif selected == 'Analysis by cell-type':
-
-        st.info('For each cell type, check the similarity and difference among samples of each TF rank. Cell types that have only one sample are not included in the dropdown list')
-
-        
-        s_celltype = st.selectbox(f'Cell type ({len(celltypeAll)})', celltypeAll,  key=persist("tfpage_tab2_type"),   
-                                  format_func=lambda x: x + " (Num of patients: " + str(len(type2ds[x])) + ")")
-        
-        imgfile = str(
-            path_data / f"TFrank/within_celltype/figure/heatmap_TFrank_samples_{s_celltype}.png")
-        imgfile_out = f"heatmap_TFrank_within_{s_celltype}.png"
-
-        _, c, _ = st.columns([1,4,1])
-        c.image(imgfile)
-
-        datafile = str(
-            path_data / f"TFrank/within_celltype/TFrank_samples_{s_celltype}.csv")
-        datafile_out = f"TFranks_within_{s_celltype}.csv"
-
-        df_data = load_data(datafile)
-
-        c_checkbox, _, c_dwdata, c_dwimg = st.columns([3, 5, 3, 3])
-
-        cb = c_checkbox.checkbox("Show data", key=imgfile)
-
-        btn_img = c_dwimg.download_button(
-            label='📥 '+"Download Image",
-            data=img2buf(imgfile),
-            file_name=imgfile_out
-        )
-
-        btn_data = c_dwdata.download_button(
-            label='📩 '+"Download Data",
-            data=convert_df_to_csv(df_data),
-            file_name=datafile_out,
-            mime="text/csv",
-            key='download-csv',
-            disabled=not cb
-        )
-
-        if cb:
-            st.dataframe(df_data.style.format(precision=0), use_container_width=True)
-
     elif selected == "Analysis by TFs (cell-type specific view)":
         c3_1, c3_2 = st.columns(2)
 
@@ -190,6 +146,50 @@ def TF_page(path_data):
         df_data = df_ranks_all.loc[df_ranks_all["Celltype"].isin(type3_selected), ['Celltype', 'Dataset'] + tf3_selected]
         c_checkbox, _, c_dwdata = st.columns([3, 9, 3])
         cb = c_checkbox.checkbox("Show data", key="TFrank")
+
+        btn_data = c_dwdata.download_button(
+            label='📩 '+"Download Data",
+            data=convert_df_to_csv(df_data),
+            file_name=datafile_out,
+            mime="text/csv",
+            key='download-csv',
+            disabled=not cb
+        )
+
+        if cb:
+            st.dataframe(df_data.style.format(precision=0), use_container_width=True)
+
+
+    elif selected == 'Analysis by cell-type':
+
+        st.info('For each cell type, check the similarity and difference among samples of each TF rank. Cell types that have only one sample are not included in the dropdown list')
+
+        
+        s_celltype = st.selectbox(f'Cell type ({len(celltypeAll)})', celltypeAll,  key=persist("tfpage_tab2_type"),   
+                                  format_func=lambda x: x + " (Num of patients: " + str(len(type2ds[x])) + ")")
+        
+        imgfile = str(
+            path_data / f"TFrank/within_celltype/figure/heatmap_TFrank_samples_{s_celltype}.png")
+        imgfile_out = f"heatmap_TFrank_within_{s_celltype}.png"
+
+        _, c, _ = st.columns([1,7,1])
+        c.image(imgfile)
+
+        datafile = str(
+            path_data / f"TFrank/within_celltype/TFrank_samples_{s_celltype}.csv")
+        datafile_out = f"TFranks_within_{s_celltype}.csv"
+
+        df_data = load_data(datafile)
+
+        c_checkbox, _, c_dwdata, c_dwimg = st.columns([3, 5, 3, 3])
+
+        cb = c_checkbox.checkbox("Show data", key=imgfile)
+
+        btn_img = c_dwimg.download_button(
+            label='📥 '+"Download Image",
+            data=img2buf(imgfile),
+            file_name=imgfile_out
+        )
 
         btn_data = c_dwdata.download_button(
             label='📩 '+"Download Data",
