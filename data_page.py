@@ -52,7 +52,7 @@ def data_page(path_data):
                            menu_icon="cast", default_index=0, orientation="horizontal",
                            styles={
         "container": {"padding": "5!important", "background-color": "#eee"},
-        "icon": {"color": "orange", "font-size": "20px"},
+        "icon": {"color": "orange", "font-size": "18px"},
         "nav-link": {"font-size": "16px", "text-align": "center", "margin": "0px", "--hover-color": "#fafafa"},
         "nav-link-selected": {"background-color": "#FD5816"},
         # "separator":"."
@@ -62,12 +62,12 @@ def data_page(path_data):
 
         hide_dataframe_index()
         # st.write("Donors (4):")
-        st.markdown('''###### Donors (4):''')
+        st.markdown('''###### Patients (3):''')
         st.dataframe(dataset_info)
 
         hide_table_index()
         # st.write("Cell types (24):")
-        st.markdown('''###### Cell types (24):''')
+        st.markdown('''###### Cell types (13):''')
         st.table(celltype_names)
 
         # write_text("Proteins (52):", fontsize=10)
@@ -93,7 +93,7 @@ def data_page(path_data):
                                    styles={
             "container": {"padding": "5!important", "background-color": "#eee"},
             # "icon": {"color": "orange", "font-size": "14px"},
-            "nav-link": {"font-size": "18px", "text-align": "center", "margin": "0px", "--hover-color": "#fafafa"},
+            "nav-link": {"font-size": "16px", "text-align": "center", "margin": "0px", "--hover-color": "#fafafa"},
             "nav-link-selected": {"background-color": "#80adcc"},
             # "separator":"."
         }
@@ -137,7 +137,7 @@ def data_page(path_data):
                                     styles={
             "container": {"padding": "5!important", "background-color": "#eee"},
             # "icon": {"color": "orange", "font-size": "14px"},
-            "nav-link": {"font-size": "18px", "text-align": "center", "margin": "0px", "--hover-color": "#fafafa"},
+            "nav-link": {"font-size": "16px", "text-align": "center", "margin": "0px", "--hover-color": "#fafafa"},
             "nav-link-selected": {"background-color": "#80adcc"},
             # "separator":"."
         }
@@ -184,13 +184,14 @@ def data_page(path_data):
 
 
     elif selected == "inferCNV":
+        st.info('InferCNV analysis explores tumor single cell RNA-Seq data to identify evidence for large-scale chromosomal copy number variations, such as gains or deletions of entire chromosomes or large segments of chromosomes.')
         selected_sub3 = option_menu(None, ["By cell-type", "By patient"],
                                     #    icons=["clipboard", "hdd-fill", "hdd-stack", "clipboard-plus"],
                                     menu_icon="cast", default_index=0, orientation="horizontal",
                                     styles={
             "container": {"padding": "5!important", "background-color": "#eee"},
             # "icon": {"color": "orange", "font-size": "14px"},
-            "nav-link": {"font-size": "18px", "text-align": "center", "margin": "0px", "--hover-color": "#fafafa"},
+            "nav-link": {"font-size": "16px", "text-align": "center", "margin": "0px", "--hover-color": "#fafafa"},
             "nav-link-selected": {"background-color": "#80adcc"},
             # "separator":"."
         }
@@ -215,15 +216,15 @@ def data_page(path_data):
             # c1.markdown(f'''   #### {types[0]}''')
             # c1.text("    ")
            
-            title = f'<p style="font-size: 20px;text-align: center">{types[0]} </p>'
+            title = f'<p style="font-size: 20px;text-align: center; font-weight: 600">{types[0]} </p>'
             c1.markdown(title, unsafe_allow_html=True)
             # c1.write(f"#### {types[0]}")
             c1.image(imgfile1)
-            title = f'<p style="font-size: 20px;text-align: center">{types[1]}</p>'
+            title = f'<p style="font-size: 20px;text-align: center; font-weight: 600">{types[1]}</p>'
             c2.markdown(title, unsafe_allow_html=True)
             c2.image(imgfile2)
             c1.write("#")
-            title = f'<p style="font-size: 20px;text-align: center">{types[2]}</p>'
+            title = f'<p style="font-size: 20px;text-align: center; font-weight: 600">{types[2]}</p>'
             c1.markdown(title, unsafe_allow_html=True)
             c1.image(imgfile3)
 
@@ -243,6 +244,8 @@ def data_page(path_data):
 
             st.image(imgfile)
     elif selected == "PROGENy pathway":
+
+        st.info("PROGENy is resource that leverages a large compendium of publicly available signaling perturbation experiments to yield a common core of pathway responsive genes for human and mouse. These, coupled with any statistical method, can be used to infer pathway activities from bulk or single-cell transcriptomics.")
 
         # selected_sub4 = option_menu(None, ["Violin plot", "Heatmap"],
         #                             #    icons=["clipboard", "hdd-fill", "hdd-stack", "clipboard-plus"],

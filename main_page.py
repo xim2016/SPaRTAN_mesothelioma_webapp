@@ -53,12 +53,12 @@ def main_page(setting):
     path_data = Path(f"./data/CLR1norm") 
 
     with st.sidebar:
-        default_value = st.session_state["main"] if "main" in st.session_state else 0
+        # default_value = st.session_state["main"] if "main" in st.session_state else 0
         # print( "main" in st.session_state)
         choose2 = option_menu(setting, ["CITE-seq overview", "SPaRTAN analysis"],
                             icons=['clipboard-data',
                                     'lightning-charge'],
-                            menu_icon="arrow-return-right", default_index=default_value,
+                            menu_icon="arrow-return-right", default_index=0,
                             styles={
             "container": {"padding": "5!important", "background-color": "#fafafa"},
             "icon": {"color": "orange", "font-size": "18px"},

@@ -8,16 +8,16 @@ import seaborn as sns
 # import statsmodels.api as sm
 
 
-def set_page_container_style(prcnt_width: int = 75):
-    max_width_str = f"max-width: {prcnt_width}%;"
-    st.markdown(f"""
-                <style> 
+# def set_page_container_style(prcnt_width: int = 75):
+#     max_width_str = f"max-width: {prcnt_width}%;"
+#     st.markdown(f"""
+#                 <style> 
                 
-                .appview-container .main .block-container{{{max_width_str}}}
-                </style>    
-                """,
-                unsafe_allow_html=True,
-                )
+#                 .appview-container .main .block-container{{{max_width_str}}}
+#                 </style>    
+#                 """,
+#                 unsafe_allow_html=True,
+#                 )
 
 def img2buf(img_path: str):
     img = Image.open(img_path)
@@ -48,8 +48,10 @@ def convert_df_to_csv(df):
 
 def violin_plot(title, data_group, x, y, width, height, pvalue=pd.NA):
     fig, ax = plt.subplots(figsize=(width, height))
-
-    sns.violinplot(x=x, y=y, data=data_group, ax=ax)
+    if x=="Celltype":
+        sns.violinplot(x=x, y=y, data=data_group, ax=ax, order=[ "Bcell","CD4Tcell","CD8Tcell","cDC","M2Macrophage","Macrophage","NKcell","NKTcell", "Endothelium","Fibroblast","LungEpithelium","MalignantEpithelial", "ProliferatingCell"])
+    else:
+        sns.violinplot(x=x, y=y, data=data_group, ax=ax)
     if pd.isnull(pvalue):
         ax.set_title("{} ".format(title),  fontsize=26)
     else:
