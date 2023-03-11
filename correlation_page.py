@@ -4,33 +4,21 @@ from pathlib import Path
 from utils import img2buf, violin_plot, convert_df_to_csv, load_data
 from register_load_widget_state import  persist
 
-# def set_page_container_style(prcnt_width: int = 75):
-#     max_width_str = f"max-width: {prcnt_width}%;"
-#     st.markdown(f"""
-#                 <style> 
-                
-#                 .appview-container .main .block-container{{{max_width_str}}}
-#                 </style>    
-#                 """,
-#                 unsafe_allow_html=True,
-#                 )
 
 
-# set_page_container_style(75)
+# page_style = """
+#         <style>
+#         #MainMenu {visibility: hidden;}  
+#         footer  {visibility: hidden;}  
+#         div.css-1vq4p4l.e1fqkh3o4{padding: 2rem 1rem 1.5rem;}
+#         div.block-container{padding-top:3rem;}
+#         </style>
+#         """
 
-page_style = """
-        <style>
-        #MainMenu {visibility: hidden;}  
-        footer  {visibility: hidden;}  
-        div.css-1vq4p4l.e1fqkh3o4{padding: 2rem 1rem 1.5rem;}
-        div.block-container{padding-top:3rem;}
-        </style>
-        """
+# # st.write('<style>div.block-container{padding-top:1rem;}</style>', unsafe_allow_html=True)
+# # st.write('<style>div.css-1vq4p4l.e1fqkh3o4{padding: 4rem 1rem 1.5rem;}</style>', unsafe_allow_html=True)
 
-# st.write('<style>div.block-container{padding-top:1rem;}</style>', unsafe_allow_html=True)
-# st.write('<style>div.css-1vq4p4l.e1fqkh3o4{padding: 4rem 1rem 1.5rem;}</style>', unsafe_allow_html=True)
-
-st.markdown(page_style, unsafe_allow_html=True)
+# st.markdown(page_style, unsafe_allow_html=True)
 
 def correlation_page(path_data,last_select=""):
 
@@ -56,7 +44,10 @@ def correlation_page(path_data,last_select=""):
         celltype2Nsample[celltype] = Nsamples
 
     celltypes = celltypes2
-    st.markdown("### Correlation betwen surface protein and Transcription Factor(TF)", True)
+    # st.markdown("### Correlation betwen surface protein and Transcription Factor(TF)", True)
+
+    title = f'<p style="font-size: 26px;text-align: center; font-weight: 900">Correlation betwen surface protein and Transcription Factor(TF)</p>'
+    st.markdown(title, unsafe_allow_html=True)
     st.info('Explore the sample mean of protein-TF correlations for each cell type and protein. The protein-TF pairs with lower correlation (abs<0.3) in all samples of each cell type have been removed. Cell types having less than 2 samples are not included in the list.')
  
     c_celltype, c_protein = st.columns(2)
@@ -66,38 +57,10 @@ def correlation_page(path_data,last_select=""):
 
     proteins = sorted(celltype2protein[s_celltype])
    
-    # # Check if session state object exists
-    # if "selected_protein" not in st.session_state:
-    #     st.session_state['selected_protein'] = proteins[0]
-    # if 'old_protein' not in st.session_state:
-    #     st.session_state['old_protein'] = ""   
+    # if "corrpage_protein" in st.session_state:
+    #     if not st.session_state.corrpage_protein in proteins:
+    #         st.session_state.corrpage_protein = proteins[0]
 
-
-    # # Check if value exists in the new options list. if it does retain the selection, else reset
-    # if st.session_state["selected_protein"] not in proteins:
-    #     st.session_state["selected_protein"] = proteins[0]
-
-    # prev_num = st.session_state["selected_protein"]
-
-
-    # def number_callback():
-    #     st.session_state["old_protein"] = st.session_state["selected_protein"]
-    #     st.session_state["selected_protein"] = st.session_state.new_protein
-        
-
-    # st.session_state["selected_protein"] = c_protein.selectbox(
-    #             f'Protein ({len(proteins)})',
-    #             proteins,
-    #             index=proteins.index(st.session_state["selected_protein"]),
-    #             key = 'new_protein',
-    #             on_change = number_callback
-    #         )
-
-    if "corrpage_protein" in st.session_state:
-        if not st.session_state.corrpage_protein in proteins:
-            st.session_state.corrpage_protein = proteins[0]
-
-    # selected_protein = st.session_state["selected_protein"]
 
     selected_protein = c_protein.selectbox(
                 f'Protein ({len(proteins)})',
@@ -114,7 +77,8 @@ def correlation_page(path_data,last_select=""):
     datafile_output = "corr_" + f"{s_celltype}~{selected_protein}.csv"
     
     st.write("")
-    st.image(imgfile_input)
+    _,c,_ = st.columns([1,4,1])
+    c.image(imgfile_input)
     
     ################################################################
     # show table and download data

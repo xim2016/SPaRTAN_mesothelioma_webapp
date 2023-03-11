@@ -6,19 +6,19 @@ from utils import hide_table_index, hide_dataframe_index
 import os
 from PIL import Image
 
-page_style = """
-        <style>
-        #MainMenu {visibility: hidden;}  
-        footer  {visibility: hidden;}  
-        div.css-1vq4p4l.e1fqkh3o4{padding: 2rem 1rem 1.5rem;}
-        div.block-container{padding-top:3rem;}
-        </style>
-        """
+# page_style = """
+#         <style>
+#         #MainMenu {visibility: hidden;}  
+#         footer  {visibility: hidden;}  
+#         div.css-1vq4p4l.e1fqkh3o4{padding: 2rem 1rem 1.5rem;}
+#         div.block-container{padding-top:3rem;}
+#         </style>
+#         """
 
-# st.write('<style>div.block-container{padding-top:1rem;}</style>', unsafe_allow_html=True)
-# st.write('<style>div.css-1vq4p4l.e1fqkh3o4{padding: 4rem 1rem 1.5rem;}</style>', unsafe_allow_html=True)
+# # st.write('<style>div.block-container{padding-top:1rem;}</style>', unsafe_allow_html=True)
+# # st.write('<style>div.css-1vq4p4l.e1fqkh3o4{padding: 4rem 1rem 1.5rem;}</style>', unsafe_allow_html=True)
 
-st.markdown(page_style, unsafe_allow_html=True)
+# st.markdown(page_style, unsafe_allow_html=True)
 
 path = "./data"
 protein_names = pd.read_csv(Path(path)/"protein_names.csv", index_col=0).T
@@ -184,6 +184,10 @@ def data_page(path_data):
 
 
     elif selected == "inferCNV":
+
+        # title = f'<p style="font-size: 28px;text-align: center; font-weight: 900">InferCNV analysis</p>'
+        # st.markdown(title, unsafe_allow_html=True)
+
         st.info('InferCNV analysis explores tumor single cell RNA-Seq data to identify evidence for large-scale chromosomal copy number variations, such as gains or deletions of entire chromosomes or large segments of chromosomes.')
         selected_sub3 = option_menu(None, ["By cell-type", "By patient"],
                                     #    icons=["clipboard", "hdd-fill", "hdd-stack", "clipboard-plus"],
@@ -245,21 +249,10 @@ def data_page(path_data):
             st.image(imgfile)
     elif selected == "PROGENy pathway":
 
-        st.info("PROGENy is resource that leverages a large compendium of publicly available signaling perturbation experiments to yield a common core of pathway responsive genes for human and mouse.")
+        title = f'<p style="font-size: 26px;text-align: center; font-weight: 800">PROGENy pathway</p>'
+        st.markdown(title, unsafe_allow_html=True)
 
-        # selected_sub4 = option_menu(None, ["Violin plot", "Heatmap"],
-        #                             #    icons=["clipboard", "hdd-fill", "hdd-stack", "clipboard-plus"],
-        #                             menu_icon="cast", default_index=0, orientation="horizontal",
-        #                             styles={
-        #     "container": {"padding": "5!important", "background-color": "#eee"},
-        #     # "icon": {"color": "orange", "font-size": "14px"},
-        #     "nav-link": {"font-size": "18px", "text-align": "center", "margin": "0px", "--hover-color": "#fafafa"},
-        #     "nav-link-selected": {"background-color": "#80adcc"},
-        #     # "separator":"."
-        # }
-        # )
-        # # 858d83
-        # if selected_sub4 == "Violin plot":
+        st.info("PROGENy is resource that leverages a large compendium of publicly available signaling perturbation experiments to yield a common core of pathway responsive genes for human and mouse.")
 
         path_violin = Path("./data/PROGENy/violinPlot")
 

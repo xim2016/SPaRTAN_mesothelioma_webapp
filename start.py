@@ -69,8 +69,7 @@ load_widget_state()
 path_data = Path(f"./data/CLR1norm") 
 
 with st.sidebar:
-    # default_value = st.session_state["main"] if "main" in st.session_state else 0
-    # print( "main" in st.session_state)
+    
     choose1 = option_menu("Menu", ["nCounter mouse immunology panel","Human CITE-seq data"],
                         icons=['clipboard-data',
                                 'lightning-charge'],
@@ -90,16 +89,10 @@ with st.sidebar:
 
 if choose1 == "nCounter mouse immunology panel":
     nanostring_page()
-#     correlation_page(path_data)
+
 
 elif choose1 == "Human CITE-seq data":
     main_page(choose1)
-#     TF_page(path_data)
-# elif choose2 == "Cite-seq Data Info":
-    
-#     data_page(path_data)
 
-# elif choose2 == "Nanostring Data Info":
-#     nanostring_page()
 
 
