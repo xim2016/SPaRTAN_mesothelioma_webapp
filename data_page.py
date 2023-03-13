@@ -90,7 +90,7 @@ def data_page(path_data):
         if selected_sub == "by Protein":
 
             path_ADT = Path("./data/ADT_data/violinPlot")
-            c1, c2 = st.columns([7,2])
+            _, c1, _ = st.columns([1,9,1])
             pro_selected = c1.selectbox(
                 'Protein',
                 list(protein_names.loc['x', :]),
@@ -100,7 +100,7 @@ def data_page(path_data):
             imgfile = str(path_ADT / f"ViolinPlot_ByCLR1_{pro_selected}-TotalSeqC.png"
                           )
 
-            st.image(imgfile)
+            c1.image(imgfile)
 
         elif selected_sub == "by Patient":
 
@@ -134,7 +134,7 @@ def data_page(path_data):
         if selected_sub2 == "Violin plot":
 
             path_gene = Path("./data/mRNA_data/violinPlot")
-            c1, c2 = st.columns([7,2])
+            _,c1, _= st.columns([1,9,1])
             gene_selected = c1.selectbox(
                 'Gene',
                 gene_list,
@@ -144,7 +144,7 @@ def data_page(path_data):
             imgfile = str(path_gene / f"ViolinPlot_{gene_selected}.png"
                           )
 
-            st.image(imgfile)
+            c1.image(imgfile)
         elif selected_sub2 == "Heatmap":
             path_plot = Path("./data/mRNA_data/heatmap")
 
@@ -244,7 +244,7 @@ def data_page(path_data):
 
         path_violin = Path("./data/PROGENy/violinPlot")
 
-        c1, c2 = st.columns([7,5])
+        _,c1, _ = st.columns([2,5,2])
         type_selected = c1.selectbox(
             'Cell types',
             celltypes,
@@ -253,7 +253,7 @@ def data_page(path_data):
         
         imgfile = str(path_violin/ f"ViolinPlot_PROGENyPathwayActivity_IndividualPt_{type_selected}.png")
                         
-        st.image(imgfile)
+        c1.image(imgfile)
 
         # elif selected_sub4 == "Heatmap":
         #     path_heatmap = Path("./data/inferCNV/heatmap")
