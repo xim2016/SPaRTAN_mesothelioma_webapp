@@ -244,7 +244,7 @@ def data_page(path_data):
 
         path_violin = Path("./data/PROGENy/violinPlot")
 
-        c1, c2 = st.columns([21,20])
+        c1, c2 = st.columns([7,5])
         type_selected = c1.selectbox(
             'Cell types',
             celltypes,

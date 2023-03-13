@@ -62,7 +62,7 @@ def correlation_page(path_data,last_select=""):
     datafile_output = "corr_" + f"{s_celltype}~{selected_protein}.csv"
     
     st.write("")
-    _,c,_ = st.columns([1,7,1])
+    _,c,_ = st.columns([1,9,1])
     c.image(imgfile_input)
     
     ################################################################

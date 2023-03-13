@@ -113,7 +113,7 @@ def TF_page(path_data):
         type3_selected = st.multiselect(f'Cell types', celltypeAll, default=celltypeAll[0],  key=persist("tfpage_tab3_type"),
                                  format_func=lambda x: x + " (Num of patients: " + str(len(type2ds[x])) + ")")
 
-        _, c, _ = st.columns([1,4,1])
+        _, c, _ = st.columns([1,9,1])
         for tf in tf3_selected:
             for type in type3_selected:
                 df_ranks_2 = df_ranks_all.loc[df_ranks_all['Celltype']==type, [tf, "Dataset"]]
@@ -156,7 +156,7 @@ def TF_page(path_data):
             path_data / f"TFrank/within_celltype/figure/heatmap_TFrank_samples_{s_celltype}.png")
         imgfile_out = f"heatmap_TFrank_within_{s_celltype}.png"
 
-        _, c, _ = st.columns([1,7,1])
+        _, c, _ = st.columns([1,9,1])
         c.image(imgfile)
 
         datafile = str(
